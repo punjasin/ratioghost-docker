@@ -1,0 +1,22 @@
+services:
+  ratioghost:
+    build:
+      context: .
+      dockerfile: python/Dockerfile
+    image: ratioghost
+    container_name: ratioghost
+    restart: unless-stopped
+    ports:
+      - "3773:3773"   # HTTP proxy
+      - "3774:3774"   # HTTPS interception (listen port + 1)
+    environment:
+      # Actual-upload mode: report the real upload (no inflation/boost) and
+      # report download as 0. Override any of these as needed.
+      RG_BIND: "0.0.0.0"
+      RG_LISTEN_PORT: "3773"
+      RG_ONLY_LOCAL: "0"
+      RG_NO_DOWNLOAD: "1"
+      RG_NO_INFLATE: "1"
+      # RG_ONLY_TRACKER: "1"
+      # RG_SEED: "0"
+      # RG_LOGLEVEL: "INFO"

@@ -42,6 +42,18 @@ The image ships in **actual-upload mode**: `RG_NO_INFLATE=1` (report the real
 upload, no inflation or boost) and `RG_NO_DOWNLOAD=1` (report download as 0).
 Override either with `-e` to change behaviour.
 
+### Docker Compose
+
+A `docker-compose.yml` is provided at the repo root:
+
+```bash
+docker compose up -d --build
+docker compose logs -f
+docker compose down
+```
+
+Edit the `environment:` block in `docker-compose.yml` to change settings.
+
 ## Configuration (environment variables)
 
 | Variable | Default | Meaning |
