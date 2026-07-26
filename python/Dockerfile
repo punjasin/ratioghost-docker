@@ -15,6 +15,8 @@ EXPOSE 3773 3774
 
 ENV RG_BIND=0.0.0.0 \
     RG_LISTEN_PORT=3773 \
-    RG_ONLY_LOCAL=0
+    RG_ONLY_LOCAL=0 \
+    RG_NO_DOWNLOAD=1 \
+    RG_NO_INFLATE=1
 
 CMD ["python", "-u", "ratioghost.py"]

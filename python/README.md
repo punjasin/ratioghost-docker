@@ -35,8 +35,12 @@ and the standard library only.
 
 ```bash
 docker build -f python/Dockerfile -t ratioghost .
-docker run --rm -p 3773:3773 -p 3774:3774 -e RG_ONLY_LOCAL=0 ratioghost
+docker run --rm -p 3773:3773 -p 3774:3774 ratioghost
 ```
+
+The image ships in **actual-upload mode**: `RG_NO_INFLATE=1` (report the real
+upload, no inflation or boost) and `RG_NO_DOWNLOAD=1` (report download as 0).
+Override either with `-e` to change behaviour.
 
 ## Configuration (environment variables)
 
@@ -46,7 +50,8 @@ docker run --rm -p 3773:3773 -p 3774:3774 -e RG_ONLY_LOCAL=0 ratioghost
 | `RG_LISTEN_PORT` | `3773` | HTTP proxy port (HTTPS port is this + 1) |
 | `RG_ONLY_LOCAL` | `0` | Only accept connections from `127.0.0.1` |
 | `RG_ONLY_TRACKER` | `1` | Block anything that isn't tracker traffic |
-| `RG_MIN_PEERS` | `5` | Minimum leechers before inflating upload |
+| `RG_NO_INFLATE` | `0` | Report the real upload only — no ratio inflation, no boost |
+| `RG_MIN_PEERS` | `5` | Minimum leechers before inflating upload (ignored when `RG_NO_INFLATE=1`) |
 | `RG_UPUP_RATIO_A` / `RG_UPUP_RATIO_B` | `4.0` / `8.0` | Upload-vs-upload ratio range |
 | `RG_UPDOWN_RATIO_A` / `RG_UPDOWN_RATIO_B` | `0.00` / `0.05` | Upload-vs-download ratio range |
 | `RG_BOOST` | `15` | Boost magnitude (KB/s over elapsed time) |

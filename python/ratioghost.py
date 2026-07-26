@@ -64,6 +64,9 @@ class Settings:
         # Block anything that is not a tracker announce/scrape.
         self.only_tracker = _envb("RG_ONLY_TRACKER", 1)
 
+        # Report the real upload only: no ratio inflation, no boost.
+        self.no_inflate = _envb("RG_NO_INFLATE", 0)
+
         self.min_peers = _envi("RG_MIN_PEERS", 5)
         self.upup_ratio_a = _envf("RG_UPUP_RATIO_A", 4.0)
         self.upup_ratio_b = _envf("RG_UPUP_RATIO_B", 8.0)
@@ -222,7 +225,7 @@ def fake_announce(query, host, port):
 
     last_peers = response.get(h, {}).get("incomplete", 0)
 
-    if last_peers >= settings.min_peers:
+    if not settings.no_inflate and last_peers >= settings.min_peers:
         down_ratio = settings.updown_ratio_b + random.random() * (
             settings.updown_ratio_a - settings.updown_ratio_b)
         up_ratio = settings.upup_ratio_b + random.random() * (
