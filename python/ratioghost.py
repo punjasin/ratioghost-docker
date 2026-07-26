@@ -78,6 +78,9 @@ class Settings:
 
         self.no_download = _envb("RG_NO_DOWNLOAD", 0)
         self.seed = _envb("RG_SEED", 0)
+        # Auto-switch to seeding (left=0) once the client actually completes
+        # (its real "left" reaches 0). Leeches until then.
+        self.auto_seed = _envb("RG_AUTO_SEED", 0)
 
         self.tls_cert = os.environ.get("RG_TLS_CERT", "tls/server.crt")
         self.tls_key = os.environ.get("RG_TLS_KEY", "tls/server.key")
@@ -210,12 +213,17 @@ def fake_announce(query, host, port):
 
     post = f"{host}:{port} down/up from {format_data(down)}/{format_data(up)} to "
 
+    real_left = left_v  # the client's true "left" (0 == complete / seeding)
+
     if settings.no_download:
         _fd, _fu, fl = actual_first[h]
         down = 0
-        left_v = fl
-        if settings.seed:
+        # Report as a seeder (left=0) when forced, or — with auto-seed —
+        # dynamically once the client has actually finished (real left hit 0).
+        if settings.seed or (settings.auto_seed and real_left == 0):
             left_v = 0
+        else:
+            left_v = fl
         if ev == "completed":
             # Strip the completed event so the tracker never records it.
             if re.search(r"&event=completed", query):

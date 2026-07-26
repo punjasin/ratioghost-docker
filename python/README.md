@@ -69,7 +69,8 @@ Edit the `environment:` block in `docker-compose.yml` to change settings.
 | `RG_BOOST` | `15` | Boost magnitude (KB/s over elapsed time) |
 | `RG_BOOST_CHANCE` | `5` | Percent chance of applying a boost |
 | `RG_NO_DOWNLOAD` | `0` | Report download as 0 (and suppress `completed`) |
-| `RG_SEED` | `0` | With `RG_NO_DOWNLOAD`, report `left=0` (seeding) |
+| `RG_SEED` | `0` | With `RG_NO_DOWNLOAD`, always report `left=0` (seeding) |
+| `RG_AUTO_SEED` | `0` | With `RG_NO_DOWNLOAD`, leech until the client actually completes, then dynamically switch to seeding (`left=0`) |
 | `RG_TLS_CERT` / `RG_TLS_KEY` | `tls/server.crt` / `tls/server.key` | HTTPS interception cert/key |
 | `RG_LOGLEVEL` | `INFO` | Logging level |
 

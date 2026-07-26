@@ -17,6 +17,7 @@ services:
       RG_ONLY_LOCAL: "0"
       RG_NO_DOWNLOAD: "1"
       RG_NO_INFLATE: "1"
+      RG_AUTO_SEED: "1"
       # RG_ONLY_TRACKER: "1"
       # RG_SEED: "0"
       # RG_MIN_PEERS: "5"
