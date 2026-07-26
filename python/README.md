@@ -52,7 +52,8 @@ docker compose logs -f
 docker compose down
 ```
 
-Edit the `environment:` block in `docker-compose.yml` to change settings.
+Settings are read from the `.env` file at the repo root — edit it and run
+`docker compose up -d` to apply.
 
 ## Configuration (environment variables)
 
