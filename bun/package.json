@@ -1,0 +1,10 @@
+{
+  "name": "ratioghost-seeder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Scans a folder for .torrent files and periodically announces them to their trackers as a complete seeder (0/0 up/down).",
+  "scripts": {
+    "start": "bun run seeder.ts"
+  }
+}
